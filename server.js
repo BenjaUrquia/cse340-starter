@@ -2,14 +2,26 @@
  * This server.js file is the primary file of the 
  * application. It is used to control the project.
  *******************************************/
+
+
 /* ***********************
  * Require Statements
  *************************/
 const express = require("express")
 const env = require("dotenv").config()
+const expressLayouts = require("express-ejs-layouts")
 const app = express()
 const static = require("./routes/static")
-const expressLayouts = require("express-ejs-layouts")
+
+
+/* ***********************
+ * View Engine and Templates
+ *************************/
+app.set("view engine", "ejs")
+app.use(expressLayouts)
+app.set("layout","./layouts/layout") // not at view root
+
+
 /* ***********************
  * Routes
  *************************/
@@ -21,18 +33,14 @@ app.get("/", function(req, res){
 })
 
 
-/* ***********************
- * View Engine and Templates
- *************************/
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout","./layouts/layout") // not at view root
+
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
  *************************/
 const port = process.env.PORT
 const host = process.env.HOST
+
 
 /* ***********************
  * Log statement to confirm server operation
